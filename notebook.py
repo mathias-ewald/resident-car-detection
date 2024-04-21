@@ -30,7 +30,7 @@ def __():
         'runs_dir': './runs',     
     })
 
-    model = YOLO('yolov8n.pt')
+    model = YOLO('yolov8x.pt')
     return YOLO, model, settings
 
 
