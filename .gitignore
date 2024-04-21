@@ -6,3 +6,4 @@ venv
 *.log
 datasets
 runs
+.DS_Store
