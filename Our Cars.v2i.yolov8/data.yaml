@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['a3', 'q4']
+
+roboflow:
+  workspace: private-workspace-0pk4a
+  project: our-cars
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/private-workspace-0pk4a/our-cars/dataset/2
