@@ -12,44 +12,26 @@ def __():
     return TEST_PICTURE, mo
 
 
-@app.cell
-def __():
-    import torch
-    import torch.backends.mps as mps
-
-    device_str = "mps" if mps.is_available() else "cpu"
-    device = torch.device(device_str)
-
-    print(device)
-    return device, device_str, mps, torch
-
-
-@app.cell
-def __():
-    from ultralytics import settings
-    import os 
-    import json
-
-    pwd = os.path.abspath('./')
-    datasets_dir = os.path.join(pwd, 'datasets')
-    runs_dir = os.path.join(pwd, 'runs')
-
-    settings_update = {
-        'datasets_dir': datasets_dir,
-        'runs_dir': runs_dir,     
-    }
-
-    print(json.dumps(settings_update, indent=4))
-
-    settings.update(settings_update)
-    return datasets_dir, json, os, pwd, runs_dir, settings, settings_update
+@app.cell(hide_code=True)
+def __(mo):
+    mo.md(f"""
+    # Pretrained Model
+    """)
+    return
 
 
 @app.cell
 def __():
     from ultralytics import YOLO
+    from ultralytics import settings
+
+    settings.update({
+        'datasets_dir': './datasets',
+        'runs_dir': './runs',     
+    })
+
     model = YOLO('yolov8n.pt')
-    return YOLO, model
+    return YOLO, model, settings
 
 
 @app.cell
@@ -68,23 +50,40 @@ def __(model):
 
 
 @app.cell
-def __(TEST_PICTURE, infer):
+def __(TEST_PICTURE, infer, mo):
     pretrained_result = infer(TEST_PICTURE, "pretrain-result.jpg")
+    mo.image(src="pretrain-result.jpg")
     return pretrained_result,
+
+
+@app.cell(hide_code=True)
+def __(mo):
+    mo.md(f"""
+    # Train on Our Cars Dataset
+    """)
+    return
 
 
 @app.cell
 def __(model):
+    import torch
+    import torch.backends.mps as mps
+
+    device_str = "mps" if mps.is_available() else "cpu"
+    device = torch.device(device_str)
+
     ourcars_train_results = model.train(
         data='./Our Cars.v2i.yolov8/data.yaml',
-        epochs=100
+        epochs=100,
+        device=device
     )
-    return ourcars_train_results,
+    return device, device_str, mps, ourcars_train_results, torch
 
 
 @app.cell
-def __(TEST_PICTURE, infer):
+def __(TEST_PICTURE, infer, mo):
     ourcars_results = infer(TEST_PICTURE, "ourcars-result.jpg")
+    mo.image(src="ourcars-result.jpg")
     return ourcars_results,
 
 

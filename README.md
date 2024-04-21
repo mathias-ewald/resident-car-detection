@@ -1,4 +1,9 @@
-# YOLOv8 RTSP Camera
+# Resident Car Detection
+
+The goal of this project is to recognize parking cars in the driveway that belong to inhabitats of the house. Eventually, this information will be fed into Home Assistant for automation.
+
+
+**How to edit:**
 
 ```
 python -m venv venv
@@ -7,10 +12,5 @@ pip install -r requirements.txt
 ```
 
 ```
-export CAMERA_URI="rtsp://admin:**********@10.0.30.10:554/h264Preview_05_sub"
-python run.py
+marimo edit notebook.py
 ```
-
-The result currently looks like this. Something is still wrong :)
-
-![img](result.png)
