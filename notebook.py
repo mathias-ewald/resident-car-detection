@@ -75,7 +75,8 @@ def __(model):
     ourcars_train_results = model.train(
         data='./Our Cars.v2i.yolov8/data.yaml',
         epochs=100,
-        device=device
+        device=device,
+        plots=True,
     )
     return device, device_str, mps, ourcars_train_results, torch
 
