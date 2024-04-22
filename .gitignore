@@ -1,9 +1,9 @@
 *.pt
 __pycache__
 .ipynb_checkpoints
-*.jpg
 venv
 *.log
 datasets
 runs
 .DS_Store
+tmp/*
